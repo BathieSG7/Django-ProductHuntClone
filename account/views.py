@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from product.models import Product
 from django.http import Http404
+
 
 
 @login_required
@@ -19,7 +21,8 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = User.objects.get(username=request.POST['username'])
-                return render(request, 'account/signup.html', {'error_message': "Username is already taken !"})
+                messages.error(request,"Username is already taken !")
+                return render(request, 'account/signup.html')
 
             except User.DoesNotExist:
                 user = User.objects.create_user(
@@ -27,7 +30,8 @@ def signup(request):
                 auth.login(request, user)
                 return redirect('account:index')
         else:
-            return render(request, 'account/signup.html', {'error_message': "Password doesn\'t matched"})
+            messages.error(request,"Password doesn\'t matched")
+            return render(request, 'account/signup.html')
 
     else:
         return render(request, 'account/signup.html')
@@ -41,7 +45,8 @@ def signin(request):
             auth.login(request, user)
             return redirect('account:index')
         else:
-            return render(request, 'account/signin.html', {'error_message': "username or password is incorrect"})
+            messages.error(request,"username or password is incorrect")
+            return render(request, 'account/signin.html')
     else:
         return render(request, 'account/signin.html')
 

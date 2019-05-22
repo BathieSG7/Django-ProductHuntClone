@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Product, Voter
 
 
@@ -24,7 +25,8 @@ def add_product(request):
 
             return redirect('/product/detail/'+str(product.id))
         else:
-            return render(request, 'product/add.html', {'error_message': 'Please input all fields'})
+            messages.error(request,'Please input all fields')
+            return render(request, 'product/add.html')
     else:
         return render(request, 'product/add.html')
 
@@ -65,8 +67,11 @@ def edit(request,p_id):
             product.hunter = request.user
             product.save()
 
-            return redirect('/product/detail/'+str(product.id))
+            messages.success(request,product.title+" Successfully edited ")
+            return redirect('/accounts/')
         else:
-            return render(request, 'product/add.html', {'error_message': 'Please input all fields'})
+            messages.error(request,'Please input all fields')
+            return render(request, 'product/edit.html')
     else:
+        # user wants to edit a product
         return render(request, 'product/edit.html',{"product":product})

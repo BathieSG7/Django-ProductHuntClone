@@ -5,11 +5,18 @@
 {% block content %}
 <br><br>
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-6">
             <h4>Edit Product</h4>
             <hr>
-            <pre class="bg-warning">{{ error_message }}</pre>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             <form action="{% url 'product:edit_product' product.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
@@ -27,13 +34,13 @@
                 </div>
                 <div class="form-group">
                     <label for="icon">Product icon</label> <br>
-                    <img  class="img img-fluid" src="{{product.icon.url}}" >
-                    <input type="file" class="form-control-file" id="icon" name="icon" value="{{product.icon.url}}" >
+                    <img class="img img-fluid" src="{{product.icon.url}}">
+                    <input type="file" class="form-control-file" id="icon" name="icon" value="{{product.icon.url}}">
                 </div>
                 <div class="form-group">
                     <label for="icon">Product image</label> <br>
-                    <img  class="img img-fluid" src="{{product.image.url}}" >
-                    <input type="file" class="form-control-file" id="image" name="image"  value="{{product.image.url}}" >
+                    <img class="img img-fluid" src="{{product.image.url}}">
+                    <input type="file" class="form-control-file" id="image" name="image" value="{{product.image.url}}">
                 </div>
                 <button type="submit" class="btn btn-primary">Upload</button>
                 <a for=button class="btn btn-danger" href="{% url 'account:index'  %}">Cancel</a>
