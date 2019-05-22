@@ -8,12 +8,15 @@ from django.http import Http404
 
 
 
-@login_required
+#@login_required
 def index(request):
     if request.user.is_authenticated:
         user_id = request.user.id
         products = Product.objects.filter(hunter=user_id)
         return render(request, 'account/index.html', {'products': products})
+    else:
+        return redirect('account:signup')        
+    
 
 
 def signup(request):
@@ -60,12 +63,12 @@ def logout(request):
 @login_required
 def delete(request, p_id):
     if request.user.is_authenticated:
-        user_id = request.user.id
         try:
-            product = get_object_or_404(Product, pk=p_id, hunter=user_id)
-        except Http404:
-            return redirect('account:index')
-        else:
+            product = get_object_or_404(Product, pk=p_id)#, hunter=user_id)
             product.delete()
             return redirect('account:index')
+        except Http404:
+            return redirect('account:index')
+       
+           
     return redirect('account:index')
