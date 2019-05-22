@@ -48,3 +48,25 @@ def upvote(request, product_id):
             return redirect('/product/detail/'+str(product.id))
 
     return redirect('/product/detail/'+str(product_id))
+
+    
+@login_required
+def edit(request,p_id):
+    product = get_object_or_404(Product, pk=p_id)
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['body'] and request.POST['url']:
+            product.title = request.POST['title']
+            product.body = request.POST['body']
+            product.product_url = request.POST['url']
+            if 'icon' in request.FILES :
+                product.icon = request.FILES['icon']
+            if 'image' in request.FILES :    
+                product.image = request.FILES['image']
+            product.hunter = request.user
+            product.save()
+
+            return redirect('/product/detail/'+str(product.id))
+        else:
+            return render(request, 'product/add.html', {'error_message': 'Please input all fields'})
+    else:
+        return render(request, 'product/edit.html',{"product":product})

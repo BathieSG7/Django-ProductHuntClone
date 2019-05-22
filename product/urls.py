@@ -6,6 +6,7 @@ app_name = 'product'
 urlpatterns = [
     path('', views.index, name='index'),
     path('add/', views.add_product, name='add_product'),
+    path('edit/<int:p_id>', views.edit, name='edit_product'),
     path('detail/<int:product_id>', views.detail, name='detail'),
     path('upvote/<int:product_id>', views.upvote, name='upvote'),
 ]
