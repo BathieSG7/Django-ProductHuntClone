@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,10 @@ MESSAGE_TAGS = {
     #messages.ERROR: '',
     40: 'warning',
 }
+
+CRISPY_TEMPLATE_PACK ="bootstrap4"
+
+#the url to go after succesfully logged in 
+LOGIN_REDIRECT_URL ='account:index'
+#the url to go when the user wants to do sth that is denied for unauthenticate users
+LOGIN_URL = 'account:login'
