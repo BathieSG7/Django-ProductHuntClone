@@ -4,15 +4,12 @@ Django product hunt clone is a project where member can add product and can give
 <h1>Getting Started</h1>
 <p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</p>
 
-<h2>Prerequisites</h2>
-in your virtual environement run the command <code>pip install -r requirement.txt</code>
-
 <h2>Installing</h2>
 <pre>open terminal and type</pre>
-<code>git clone https://github.com/devmahmud/Django-ProductHuntClone.git</code><br><br>
+<code>git clone https://github.com/BathieSG7/Django-ProductHuntClone.git</code><br><br>
 
-<h4>or simply download using the url below</h4>
-<code>https://github.com/devmahmud/Django-ProductHuntClone.git</code><br>
+<h2>Prerequisites</h2>
+in your virtual environement run the command <code>pip install -r requirement.txt</code>
  
 <h2>Database Migrations</h2>
 <p>In this project i have used Postgresql Database.
